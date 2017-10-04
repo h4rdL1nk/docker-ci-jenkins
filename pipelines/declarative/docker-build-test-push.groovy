@@ -8,6 +8,7 @@ pipeline {
         label 'workeraws'
     }
     parameters {
+        string(name: 'GIT_BRANCH' , defaultValue: 'master')
         string(name: 'DEPARTMENT')
         string(name: 'AWS_REGION', defaultValue: 'eu-west-1')
         string(name: 'APP_NAME')
