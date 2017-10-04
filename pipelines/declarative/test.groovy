@@ -2,6 +2,9 @@ pipeline {
     agent {
                 label 'worker'
     }
+    parameters {
+        string(name: 'payload')
+    }
     options {
         timestamps()
         disableConcurrentBuilds()
@@ -9,7 +12,8 @@ pipeline {
     stages {
         stage('Show data'){
             steps{
-                echo "Printing data ..."
+                echo "Printing data ... ${payload}"
+                #JsonOutput.toJson()
             }
         }
     }
