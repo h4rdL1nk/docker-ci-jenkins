@@ -2,8 +2,6 @@ pipeline {
     agent {
                 label 'worker'
     }
-    parameters {
-    }
     options {
         timestamps()
         disableConcurrentBuilds()
