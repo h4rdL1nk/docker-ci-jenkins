@@ -14,7 +14,8 @@ pipeline {
                 echo "Printing data ..."
             }
         }
-        post {
+    }
+    post {
                 failure {
                         emailext(
                                 from: "jenkins-ci@app.madisonmk.com",
@@ -25,6 +26,5 @@ pipeline {
                                 attachLog: true
                                 )
                 }
-        }
     }
 }
