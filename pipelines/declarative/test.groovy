@@ -11,9 +11,9 @@ pipeline {
                 ]
             ])
         ])
-        agent {
-            label 'worker'
-        }
+    }
+    agent {
+        label 'worker'
     }
     options {
         timestamps()
