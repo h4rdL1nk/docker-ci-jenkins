@@ -2,17 +2,6 @@ pipeline {
     agent {
         label 'worker'
     }
-    properties([
-        pipelineTriggers([
-           [$class: 'GenericTrigger',
-                genericVariables: [
-                    [expressionType: 'JSONPath', key: 'push_user', value: '$.actor.username']
-                ],
-                regexpFilterText: '',
-                regexpFilterExpression: ''
-           ]
-        ])
-    ])
     options {
         timestamps()
         disableConcurrentBuilds()
