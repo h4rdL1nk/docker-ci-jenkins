@@ -1,19 +1,19 @@
 pipeline {
-    node{
-        properties([
-            pipelineTriggers([
-                [$class: 'GenericTrigger',
-                genericVariables: [
-                 [expressionType: 'JSONPath', key: 'reference', value: '$.actor.username']
-                ],
-                regexpFilterText: '',
-                regexpFilterExpression: ''
-                ]
+    agent{
+        node{
+            label 'worker'
+            properties([
+                pipelineTriggers([
+                    [$class: 'GenericTrigger',
+                    genericVariables: [
+                     [expressionType: 'JSONPath', key: 'reference', value: '$.actor.username']
+                    ],
+                    regexpFilterText: '',
+                    regexpFilterExpression: ''
+                    ]
+                ])
             ])
-        ])
-    }
-    agent {
-        label 'worker'
+        }
     }
     options {
         timestamps()
