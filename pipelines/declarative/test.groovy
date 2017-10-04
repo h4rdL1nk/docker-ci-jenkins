@@ -13,7 +13,6 @@ pipeline {
         stage('Show data'){
             steps{
                 echo "Printing data ... ${payload}"
-                #JsonOutput.toJson()
             }
         }
     }
