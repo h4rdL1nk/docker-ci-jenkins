@@ -1,10 +1,18 @@
 pipeline {
     agent {
-                label 'worker'
+        label 'worker'
     }
-    parameters {
-        string(name: 'payload')
-    }
+    properties([
+        pipelineTriggers([
+           [$class: 'GenericTrigger',
+                genericVariables: [
+                    [expressionType: 'JSONPath', key: 'push_user', value: '$.actor.username']
+                ],
+                regexpFilterText: '',
+                regexpFilterExpression: ''
+           ]
+        ])
+    ])
     options {
         timestamps()
         disableConcurrentBuilds()
@@ -12,7 +20,7 @@ pipeline {
     stages {
         stage('Show data'){
             steps{
-                echo "Printing data ... ${payload}"
+                echo "Printing data ... ${push_user}"
             }
         }
     }
