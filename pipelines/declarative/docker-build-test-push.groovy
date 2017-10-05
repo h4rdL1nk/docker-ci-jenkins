@@ -26,7 +26,8 @@ pipeline {
                     if ( GIT_PUSH != NULL ) {
                         gitPushBranch = GIT_BRANCH_0_new_name 
                     } else {
-                        gitPushBranch = GIT_REF
+                        def refValues = GIT_REF.split('/')
+                        gitPushBranch = refValues[2]
                     }
 
                     codeCo = checkout scm:[
