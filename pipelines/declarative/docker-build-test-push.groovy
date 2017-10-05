@@ -50,7 +50,7 @@ pipeline {
                                 ]],
                                 userRemoteConfigs: [[
                                     credentialsId: '1bab7e77-96a9-4fba-9b6d-d0d49b93345c',
-                                    url: "${gitRepoUrl}"
+                                    url: 'git@github.com:${GIT_REPOSITORY}'
                                 ]]
                             ]
                 }
