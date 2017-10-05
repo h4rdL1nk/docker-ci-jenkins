@@ -29,11 +29,11 @@ pipeline {
                     if ( GIT_REF != 'dummy' ) {
                         def refValues = GIT_REF.split('/')
                         gitPushBranch = refValues[2]
-                        gitRepoUrl = "git@github.com:${GIT_REPOSITORY}"
+                        gitRepoUrl = "git@github.com:${GIT_REPOSITORY}.git"
                     } else {
                         echo "BITBUCKET repository"
                         gitPushBranch = GIT_PUSH_0_new_name 
-                        gitRepoUrl = "git@bitbucket.org:${GIT_REPOSITORY}" 
+                        gitRepoUrl = "git@bitbucket.org:${GIT_REPOSITORY}.git" 
                     }
 
                     echo "Cloning repo ${gitRepoUrl} branch ${gitPushBranch}"
