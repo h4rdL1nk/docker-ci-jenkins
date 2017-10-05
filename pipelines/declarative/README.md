@@ -23,4 +23,3 @@ Jenkins job definition
 	Pipeline
 		Pipeline Script from SCM
 			docker-build-test-push.groovy
-
