@@ -23,7 +23,7 @@ pipeline {
             steps{
                 script{
 
-                    if ( GIT_PUSH != NULL ) {
+                    if ( GIT_PUSH ) {
                         gitPushBranch = GIT_BRANCH_0_new_name 
                     } else {
                         def refValues = GIT_REF.split('/')
