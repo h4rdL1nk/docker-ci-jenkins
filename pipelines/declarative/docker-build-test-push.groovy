@@ -27,10 +27,8 @@ pipeline {
                 script{
 
                     if ( GIT_REF != 'dummy' ) {
-                        echo "GIT repository"
                         def refValues = GIT_REF.split('/')
                         gitPushBranch = refValues[2]
-                        echo "Branch ${gitPushBranch}"
                         gitRepoUrl = "git@github.com:${GIT_REPOSITORY}"
                     } else {
                         echo "BITBUCKET repository"
@@ -38,7 +36,7 @@ pipeline {
                         gitRepoUrl = "git@bitbucket.org:${GIT_REPOSITORY}" 
                     }
 
-                    echo "Cloning repo ${gitRepourl} branch ${gitPushBranch}"
+                    echo "Cloning repo ${gitRepoUrl} branch ${gitPushBranch}"
 
                     codeCo = checkout scm:[
                                 $class: 'GitSCM',
@@ -52,7 +50,7 @@ pipeline {
                                 ]],
                                 userRemoteConfigs: [[
                                     credentialsId: '1bab7e77-96a9-4fba-9b6d-d0d49b93345c',
-                                    url: 'git@github.com:${GIT_REPOSITORY}'
+                                    url: '${gitRepoUrl}'
                                 ]]
                             ]
                 }
