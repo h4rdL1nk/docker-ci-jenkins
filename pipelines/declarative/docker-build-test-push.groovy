@@ -2,15 +2,16 @@ def imgTag
 def imgAwsTag
 def codeCo
 def awsEnv
+def gitPushBranch
 
 pipeline {
     agent {
         label 'workeraws'
     }
     parameters {
-        string(name: 'DEPARTMENT')
+        string(name: 'DEPARTMENT', defaultValue: 'dummy')
         string(name: 'AWS_REGION', defaultValue: 'eu-west-1')
-        string(name: 'APP_NAME')
+        string(name: 'APP_NAME', defaultValue: 'dummy')
         booleanParam(name: 'DEPLOY', defaultValue: false)
     }
     options {
@@ -21,6 +22,13 @@ pipeline {
         stage('Checkout code'){
             steps{
                 script{
+
+                    if ( GIT_PUSH != NULL ) {
+                        gitPushBranch = GIT_BRANCH_0_new_name 
+                    } else {
+                        gitPushBranch = GIT_REF
+                    }
+
                     codeCo = checkout scm:[
                                 $class: 'GitSCM',
                                 poll: true,
@@ -29,11 +37,11 @@ pipeline {
                                     relativeTargetDir: 'code'
                                 ]],
                                 branches: [[
-                                    name: '*/${GIT_BRANCH_0_new_name}'
+                                    name: '*/${gitPushBranch}'
                                 ]],
                                 userRemoteConfigs: [[
                                     credentialsId: '1bab7e77-96a9-4fba-9b6d-d0d49b93345c',
-                                    url: 'git@bitbucket.org:${GIT_USERNAME}/${GIT_REPOSITORY}'
+                                    url: 'git@bitbucket.org:${GIT_REPOSITORY}'
                                 ]]
                             ]
                 }

@@ -8,16 +8,17 @@ Jenkins job definition
 		Generic Webhook Trigger
 			Post content parameters
 				Variable: GIT_REPOSITORY
-				Expression: $.repository.name
+				Expression: $.repository.full_name
 				Type: JSONPath
 
-				Variable: GIT_USERNAME
-				Expression: $.repository.owner.username
+				Variable: GIT_REF
+				Expression: $.ref
 				Type: JSONPath
 
-				Variable: GIT_BRANCH
+				Variable: GIT_PUSH
 				Expression: $.push.changes
 				Type: JSONPath
+
 
 	Pipeline
 		Pipeline Script from SCM
