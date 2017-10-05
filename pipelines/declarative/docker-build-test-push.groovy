@@ -26,14 +26,13 @@ pipeline {
             steps{
                 script{
 
-                    if ( GIT_REF != 'dummy' ) {
+                    if ( GIT_PUSH_0_new_name ) {
+                        gitPushBranch = GIT_PUSH_0_new_name 
+                        gitRepoUrl = "https://bitbucket.org/${GIT_REPOSITORY}" 
+                    } else {
                         def refValues = GIT_REF.split('/')
                         gitPushBranch = refValues[2]
                         gitRepoUrl = "https://github.com/${GIT_REPOSITORY}"
-                    } else {
-                        echo "BITBUCKET repository"
-                        gitPushBranch = GIT_PUSH_0_new_name 
-                        gitRepoUrl = "https://bitbucket.org/${GIT_REPOSITORY}" 
                     }
 
                     codeCo = checkout scm:[
