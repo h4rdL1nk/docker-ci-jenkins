@@ -25,11 +25,12 @@ pipeline {
             steps{
                 script{
 
-                    if ( GIT_PUSH != 'dummy' ) {
-                        gitPushBranch = GIT_PUSH_0_new_name 
-                    } else {
+                    if ( GIT_REF != 'dummy' ) {
                         def refValues = GIT_REF.split('/')
                         gitPushBranch = refValues[2]
+                        
+                    } else {
+                        gitPushBranch = GIT_PUSH_0_new_name  
                     }
 
                     codeCo = checkout scm:[
