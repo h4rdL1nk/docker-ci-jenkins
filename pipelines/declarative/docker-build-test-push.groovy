@@ -3,6 +3,7 @@ def imgAwsTag
 def codeCo
 def awsEnv
 def gitPushBranch
+def gitRepoUrl
 
 pipeline {
     agent {
