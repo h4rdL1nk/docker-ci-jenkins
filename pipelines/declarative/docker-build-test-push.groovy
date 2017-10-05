@@ -35,6 +35,8 @@ pipeline {
                         gitRepoUrl = "git@bitbucket.org:${GIT_REPOSITORY}" 
                     }
 
+                    echo Cloning repo ${gitRepourl} branch ${gitPushBranch}
+
                     codeCo = checkout scm:[
                                 $class: 'GitSCM',
                                 poll: true,
@@ -47,7 +49,7 @@ pipeline {
                                 ]],
                                 userRemoteConfigs: [[
                                     credentialsId: '1bab7e77-96a9-4fba-9b6d-d0d49b93345c',
-                                    url: ${gitRepoUrl}
+                                    url: gitRepoUrl
                                 ]]
                             ]
                 }
