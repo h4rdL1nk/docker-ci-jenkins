@@ -31,6 +31,7 @@ pipeline {
                         def refValues = GIT_REF.split('/')
                         gitPushBranch = refValues[2]
                         gitRepoUrl = "git@github.com:${GIT_REPOSITORY}"
+                        echo "Variable defined"
                     } else {
                         echo "BITBUCKET repository"
                         gitPushBranch = GIT_PUSH_0_new_name 
