@@ -27,11 +27,12 @@ pipeline {
                 script{
 
                     if ( GIT_REF != 'dummy' ) {
+                        echo "GIT repository"
                         def refValues = GIT_REF.split('/')
                         gitPushBranch = refValues[2]
                         gitRepoUrl = "git@github.com:${GIT_REPOSITORY}"
-                        
                     } else {
+                        echo "BITBUCKET repository"
                         gitPushBranch = GIT_PUSH_0_new_name 
                         gitRepoUrl = "git@bitbucket.org:${GIT_REPOSITORY}" 
                     }
