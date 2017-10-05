@@ -4,6 +4,8 @@ def codeCo
 def awsEnv
 def gitPushBranch
 def gitRepoUrl
+def GIT_PUSH_0_new_name
+def GIT_REF
 
 pipeline {
     agent {
@@ -13,8 +15,6 @@ pipeline {
         string(name: 'DEPARTMENT', defaultValue: 'dummy')
         string(name: 'AWS_REGION', defaultValue: 'eu-west-1')
         string(name: 'APP_NAME', defaultValue: 'dummy')
-        string(name: 'GIT_PUSH', defaultValue: 'dummy')
-        string(name: 'GIT_REF', defaultValue: 'dummy')
         booleanParam(name: 'DEPLOY', defaultValue: false)
     }
     options {
