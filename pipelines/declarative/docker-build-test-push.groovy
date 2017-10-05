@@ -35,7 +35,7 @@ pipeline {
                         gitRepoUrl = "git@bitbucket.org:${GIT_REPOSITORY}" 
                     }
 
-                    echo Cloning repo ${gitRepourl} branch ${gitPushBranch}
+                    echo "Cloning repo ${gitRepourl} branch ${gitPushBranch}"
 
                     codeCo = checkout scm:[
                                 $class: 'GitSCM',
