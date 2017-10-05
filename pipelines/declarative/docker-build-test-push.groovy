@@ -12,6 +12,8 @@ pipeline {
         string(name: 'DEPARTMENT', defaultValue: 'dummy')
         string(name: 'AWS_REGION', defaultValue: 'eu-west-1')
         string(name: 'APP_NAME', defaultValue: 'dummy')
+        string(name: 'GIT_PUSH', defaultValue: 'dummy')
+        string(name: 'GIT_REF', defaultValue: 'dummy')
         booleanParam(name: 'DEPLOY', defaultValue: false)
     }
     options {
@@ -23,8 +25,8 @@ pipeline {
             steps{
                 script{
 
-                    if ( GIT_PUSH ) {
-                        gitPushBranch = GIT_BRANCH_0_new_name 
+                    if ( GIT_PUSH =! 'dummy' ) {
+                        gitPushBranch = GIT_PUSH_0_new_name 
                     } else {
                         def refValues = GIT_REF.split('/')
                         gitPushBranch = refValues[2]
