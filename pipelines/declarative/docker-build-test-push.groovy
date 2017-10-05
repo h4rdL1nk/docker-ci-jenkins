@@ -4,8 +4,8 @@ def codeCo
 def awsEnv
 def gitPushBranch
 def gitRepoUrl
-def GIT_PUSH_0_new_name = "dummy"
-def GIT_REF = "dummy"
+def isBitbucket = true
+def isGithub = true
 
 pipeline {
     agent {
@@ -26,13 +26,19 @@ pipeline {
             steps{
                 script{
 
-                    if ( GIT_PUSH_0_new_name != 'dummy' ) {
+                    try{ 
                         gitPushBranch = GIT_PUSH_0_new_name 
-                        gitRepoUrl = "https://bitbucket.org/${GIT_REPOSITORY}" 
-                    } else {
+                    } catch(ex) { isBitbucket = false }
+                    try{
                         def refValues = GIT_REF.split('/')
-                        gitPushBranch = refValues[2]
+                        gitPushBranch = refValues[2]  
+                    } catch(ex) { isGithub = false }
+
+                    if ( isGithub ){
                         gitRepoUrl = "https://github.com/${GIT_REPOSITORY}"
+                    }
+                    if ( isBitbucket ){
+                        gitRepoUrl = "https://bitbucket.org/${GIT_REPOSITORY}"
                     }
 
                     codeCo = checkout scm:[
