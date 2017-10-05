@@ -28,9 +28,11 @@ pipeline {
                     if ( GIT_REF != 'dummy' ) {
                         def refValues = GIT_REF.split('/')
                         gitPushBranch = refValues[2]
+                        gitRepoUrl = "git@github.com:${GIT_REPOSITORY}"
                         
                     } else {
-                        gitPushBranch = GIT_PUSH_0_new_name  
+                        gitPushBranch = GIT_PUSH_0_new_name 
+                        gitRepoUrl = "git@bitbucket.org:${GIT_REPOSITORY}" 
                     }
 
                     codeCo = checkout scm:[
@@ -45,7 +47,7 @@ pipeline {
                                 ]],
                                 userRemoteConfigs: [[
                                     credentialsId: '1bab7e77-96a9-4fba-9b6d-d0d49b93345c',
-                                    url: 'git@bitbucket.org:${GIT_REPOSITORY}'
+                                    url: '${gitRepoUrl}'
                                 ]]
                             ]
                 }
