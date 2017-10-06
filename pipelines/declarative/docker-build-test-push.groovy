@@ -66,7 +66,7 @@ pipeline {
         }
         stage('Docker image tests') {
             steps{
-                sh 'cd code && dgoss run jenkins-${JOB_NAME}-${BUILD_NUMBER}-img'
+                sh 'cd tests/goss && dgoss run jenkins-${JOB_NAME}-${BUILD_NUMBER}-img'
             }
         }
         stage('Application acceptance tests') {
