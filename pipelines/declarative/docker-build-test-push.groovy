@@ -44,10 +44,6 @@ pipeline {
                     codeCo = checkout scm:[
                                 $class: 'GitSCM',
                                 poll: true,
-                                extensions: [[
-                                    $class: 'RelativeTargetDirectory',
-                                    relativeTargetDir: 'code'
-                                ]],
                                 branches: [[
                                     name: "*/${gitPushBranch}"
                                 ]],
@@ -61,7 +57,7 @@ pipeline {
         }
         stage('Docker image build') {
             steps {
-                sh 'docker build -t jenkins-${JOB_NAME}-${BUILD_NUMBER}-img ./code'
+                sh 'docker build -t jenkins-${JOB_NAME}-${BUILD_NUMBER}-img build'
             }
         }
         stage('Docker image tests') {
