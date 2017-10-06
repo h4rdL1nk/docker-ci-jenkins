@@ -57,7 +57,7 @@ pipeline {
         }
         stage('Docker image build') {
             steps {
-                sh 'docker build -t jenkins-${JOB_NAME}-${BUILD_NUMBER}-img build'
+                sh 'docker build -t jenkins-${JOB_NAME}-${BUILD_NUMBER}-img .'
             }
         }
         stage('Docker image tests') {
