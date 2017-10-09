@@ -6,7 +6,7 @@ Webhook
 
 Jenkins job definition
 
-	Buil Triggers
+	Build Triggers
 		Generic Webhook Trigger
 			Post content parameters
 				Variable: GIT_REPOSITORY
@@ -20,6 +20,9 @@ Jenkins job definition
 				Variable: GIT_PUSH
 				Expression: $.push.changes
 				Type: JSONPath
+			Request parameters
+				Parameter: APP_NAME
+				Parameter: DEPARTMENT
 
 
 	Pipeline
