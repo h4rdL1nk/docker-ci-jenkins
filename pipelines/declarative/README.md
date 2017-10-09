@@ -23,6 +23,7 @@ Jenkins job definition
 			Request parameters
 				Parameter: APP_NAME
 				Parameter: DEPARTMENT
+				Parameter: DEPLOY
 
 
 	Pipeline

@@ -78,13 +78,13 @@ pipeline {
             steps{
                 withAWS(region:"${awsRegion}",credentials:"aws-${DEPARTMENT}-admin"){
                     script {
-                        def create_repo_cmd = sh script: "aws ecr create-repository --repository-name ${DEPARTMENT}/${APP_NAME}"
+                        def create_repo_cmd = sh script: "aws ecr create-repository --repository-name ${APP_NAME}"
                         def login_cmd = sh script: "aws ecr get-login", returnStdout: true
                         def login_token = login_cmd.split(' ')[5].trim()
                         def login_endpt = login_cmd.split(' ')[8].trim()
 
                         imgTag = codeCo.GIT_COMMIT
-                        imgAwsTag = "${login_endpt.split('//')[1]}/${DEPARTMENT}/${APP_NAME}:${imgTag}"
+                        imgAwsTag = "${login_endpt.split('//')[1]}/${APP_NAME}:${imgTag}"
 
                         echo "Tag AWS: ${imgAwsTag}"
 
