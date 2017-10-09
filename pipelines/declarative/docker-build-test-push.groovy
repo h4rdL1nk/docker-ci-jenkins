@@ -79,9 +79,9 @@ pipeline {
                 withAWS(region:"${awsRegion}",credentials:"aws-${DEPARTMENT}-admin"){
                     script {
                         def create_repo_cmd = sh script: "aws ecr create-repository --repository-name ${APP_NAME}"
-                        def login_cmd = sh script: "aws ecr get-login", returnStdout: true
-                        def login_token = login_cmd.split(' ')[5].trim()
-                        def login_endpt = login_cmd.split(' ')[8].trim()
+                        def login_cmd = sh script: "aws ecr get-login --no-include-email", returnStdout: true
+                        //def login_token = login_cmd.split(' ')[5].trim()
+                        //def login_endpt = login_cmd.split(' ')[8].trim()
 
                         imgTag = codeCo.GIT_COMMIT
                         imgAwsTag = "${login_endpt.split('//')[1]}/${APP_NAME}:${imgTag}"
@@ -89,7 +89,8 @@ pipeline {
                         echo "Tag AWS: ${imgAwsTag}"
 
                         sh script: """
-                            docker login -u AWS -p ${login_token} ${login_endpt}
+                            #docker login -u AWS -p ${login_token} ${login_endpt}
+                            ${login_cmd}
                             docker tag jenkins-${JOB_NAME}-${BUILD_NUMBER}-img ${imgAwsTag}
                             docker push ${imgAwsTag}
                             """, returnStdout: true
