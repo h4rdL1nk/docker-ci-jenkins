@@ -2,7 +2,7 @@
 #docker-build-test-push.groovy
 
 Webhook
-	https://user:pass@jenkins.host/generic-webhook-trigger/invoke
+	https://user:pass@jenkins.host/generic-webhook-trigger/invoke?DEPARTMENT=department&APP_NAME=bot&DEPLOY=false
 
 Jenkins job definition
 
