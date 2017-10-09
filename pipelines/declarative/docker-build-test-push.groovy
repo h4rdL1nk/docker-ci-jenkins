@@ -6,6 +6,7 @@ def gitPushBranch
 def gitRepoUrl
 def isBitbucket = true
 def isGithub = true
+def awsRegion = 'eu-west-1'
 
 pipeline {
     agent {
@@ -13,7 +14,6 @@ pipeline {
     }
     parameters {
         string(name: 'DEPARTMENT', defaultValue: 'dummy')
-        string(name: 'AWS_REGION', defaultValue: 'eu-west-1')
         string(name: 'APP_NAME', defaultValue: 'dummy')
         booleanParam(name: 'DEPLOY', defaultValue: false)
     }
@@ -76,7 +76,7 @@ pipeline {
         }
         stage('Push image to AWS') {
             steps{
-                withAWS(region:"${AWS_REGION}",credentials:"aws-${DEPARTMENT}-admin"){
+                withAWS(region:"${awsRegion}",credentials:"aws-${DEPARTMENT}-admin"){
                     script {
                         def login_cmd = sh script: "aws ecr get-login", returnStdout: true
                         def login_token = login_cmd.split(' ')[5].trim()
@@ -117,7 +117,7 @@ pipeline {
                 }
             }
             steps{
-                withAWS(region:"${AWS_REGION}",credentials:"aws-${DEPARTMENT}-admin"){
+                withAWS(region:"${awsRegion}",credentials:"aws-${DEPARTMENT}-admin"){
                     script{
                         awsEnv = "pro"
 
