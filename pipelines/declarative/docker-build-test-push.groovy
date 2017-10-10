@@ -99,7 +99,6 @@ pipeline {
                     ])   
                 }
             }
-        } 
         }
         stage('Deploy application'){
             when{
