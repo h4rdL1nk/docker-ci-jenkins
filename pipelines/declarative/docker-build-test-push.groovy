@@ -1,3 +1,5 @@
+@Library('standardLibraries') _
+
 def imgTag
 def imgAwsTag
 def codeCo
