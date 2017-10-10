@@ -82,7 +82,7 @@ pipeline {
                     dockerPushImage([
                         registryUrl: 'https://registry.madisonmk.com', 
                         registryCredId: 'local-docker-registry',
-                        localImageTag: 'jenkins-${JOB_NAME}-${BUILD_NUMBER}-img}',
+                        localImageTag: 'jenkins-${JOB_NAME}-${BUILD_NUMBER}-img',
                         pushImageTag: 'registry.madisonmk.com:${codeCo.GIT_COMMIT}'
                     ])   
                 }
