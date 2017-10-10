@@ -103,7 +103,7 @@ pipeline {
         stage('Deploy application'){
             steps{
                 script{
-                    dockerPushImageAws([
+                    awsEcsDeployApp([
                         awsRegion: "${awsRegion}",
                         awsCredId: "aws-${DEPARTMENT}-admin",
                         awsEcrImg: "test",
