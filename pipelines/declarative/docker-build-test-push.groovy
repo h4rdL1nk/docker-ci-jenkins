@@ -107,7 +107,7 @@ pipeline {
                         awsRegion: "${awsRegion}",
                         awsCredId: "aws-${DEPARTMENT}-admin",
                         awsEcrImg: "test",
-                        awsAppEnv: "pro"
+                        awsAppEnv: "pro",
                         awsAppName: "${APP_NAME}"
                     ])   
                 }    
