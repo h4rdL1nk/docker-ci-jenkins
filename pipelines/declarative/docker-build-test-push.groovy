@@ -76,6 +76,13 @@ pipeline {
                     """
             }
         }
+        stage('Push image to local registry') {
+            steps{
+                dockerPushImage {
+                    registryUrl = "https://registry.madisonmk.com"
+                }
+            }
+        }
         stage('Push image to AWS') {
             steps{
                 withAWS(region:"${awsRegion}",credentials:"aws-${DEPARTMENT}-admin"){
@@ -98,11 +105,6 @@ pipeline {
                             """, returnStdout: true
                     }
                 }
-            }
-        }
-        stage('Push image to local registry') {
-            steps{
-                dockerPushImage "https://registry.madisonmk.com"
             }
         }
         stage('Deploy application'){
