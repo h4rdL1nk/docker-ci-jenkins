@@ -59,7 +59,6 @@ pipeline {
         }
         stage('Docker image build') {
             steps {
-                dockerActions "shared test"
                 sh 'docker build -t jenkins-${JOB_NAME}-${BUILD_NUMBER}-img .'
             }
         }
@@ -103,16 +102,7 @@ pipeline {
         }
         stage('Push image to local registry') {
             steps{
-                withDockerRegistry(url:'https://registry.madisonmk.com',credentialsId:"local-docker-registry"){
-                    script{
-                        imgTag = codeCo.GIT_COMMIT
-                        imgLocalTag = "registry.madisonmk.com/${DEPARTMENT}/${APP_NAME}:${imgTag}"
-                        sh script: """
-                            docker tag jenkins-${JOB_NAME}-${BUILD_NUMBER}-img ${imgLocalTag}
-                            docker push ${imgLocalTag}
-                            """, returnStdout: true
-                    }
-                }
+                dockerPushImage "https://registry.madisonmk.com"
             }
         }
         stage('Deploy application'){
