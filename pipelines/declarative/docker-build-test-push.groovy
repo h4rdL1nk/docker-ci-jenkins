@@ -9,6 +9,7 @@ def gitRepoUrl
 def isBitbucket = true
 def isGithub = true
 def awsRegion = 'eu-west-1'
+def awsAppEnv = ''
 
 pipeline {
     agent {
@@ -103,11 +104,18 @@ pipeline {
         stage('Deploy application'){
             steps{
                 script{
+                    if ( gitPushBranch == "master" ){
+                        awsAppEnv = 'pro'    
+                    }
+                    else{
+                        awsAppEnv = 'pre'
+                    }
+
                     awsEcsDeployApp([
                         awsRegion: "${awsRegion}",
                         awsCredId: "aws-${DEPARTMENT}-admin",
                         awsEcrImg: "test",
-                        awsAppEnv: "pro",
+                        awsAppEnv: "${awsAppEnv}",
                         awsAppName: "${APP_NAME}"
                     ])   
                 }    
