@@ -78,10 +78,10 @@ pipeline {
         }
         stage('Push image to local registry') {
             steps{
-                dockerPushImage {
-                    dockerImage = "testapp:latest"
-                    dockerRegistry = "https://registry.madisonmk.com"
-                }
+                dockerPushImage ([
+                    dockerImage: "testapp:latest",
+                    dockerRegistry: "https://registry.madisonmk.com"
+                ])
             }
         }
         stage('Push image to AWS') {
