@@ -77,19 +77,6 @@ pipeline {
                     """
             }
         }
-        stage('Push to local registry'){
-            steps{
-                script{
-                    deployImg = dockerPushImage([
-                                        registryUrl: 'https://registry.madisonmk.com', 
-                                        registryCredId: 'local-docker-registry',
-                                        localImageTag: "jenkins-${JOB_NAME}-${BUILD_NUMBER}-img",
-                                        pushImageTag: "${APP_NAME}:${codeCo.GIT_COMMIT}"
-                                ]) 
-                    echo deployImg  
-                }
-            }
-        }
         stage('Push image to AWS') {
             steps{
                 script{
