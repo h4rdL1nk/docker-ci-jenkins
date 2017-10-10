@@ -60,6 +60,7 @@ pipeline {
         stage('Docker image build') {
             steps {
                 sh 'docker build -t jenkins-${JOB_NAME}-${BUILD_NUMBER}-img .'
+                dockerActions 'test'
             }
         }
         stage('Docker image tests') {
