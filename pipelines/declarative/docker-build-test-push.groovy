@@ -80,7 +80,7 @@ pipeline {
         stage('Push image to AWS') {
             steps{
                 script{
-                    dockerPushImageAws([
+                    awsEcrImg = dockerPushImageAws([
                         awsRegion: "${awsRegion}",
                         awsCredId: "aws-${DEPARTMENT}-admin",
                         localImageTag: "jenkins-${JOB_NAME}-${BUILD_NUMBER}-img",
@@ -102,7 +102,7 @@ pipeline {
                     awsEcsDeployApp([
                         awsRegion: "${awsRegion}",
                         awsCredId: "aws-${DEPARTMENT}-admin",
-                        awsEcrImg: "test",
+                        awsEcrImg: "${awsEcrImg}",
                         awsAppEnv: "${awsAppEnv}",
                         awsAppName: "${APP_NAME}"
                     ])   
