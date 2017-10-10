@@ -59,7 +59,7 @@ pipeline {
         }
         stage('Docker image build') {
             steps {
-                dockerActions.pushDockerImage
+                dockerActions "shared test"
                 sh 'docker build -t jenkins-${JOB_NAME}-${BUILD_NUMBER}-img .'
             }
         }
