@@ -78,7 +78,10 @@ pipeline {
         }
         stage('Push image to local registry') {
             steps{
-                dockerPushImage "https://registry.madisonmk.com" "jenkins-${JOB_NAME}-${BUILD_NUMBER}-img" "inftel/bot:latest"
+                dockerPushImage {
+                    dockerImage = "testapp:latest"
+                    dockerRegistry = "https://registry.madisonmk.com"
+                }
             }
         }
         stage('Push image to AWS') {
