@@ -93,7 +93,7 @@ pipeline {
                 script{
                     dockerPushImageAws([
                         awsRegion: "${awsRegion}",
-                        awsCredId: "aws-${DEPARTMENT}-admin" 
+                        awsCredId: "aws-${DEPARTMENT}-admin",
                         localImageTag: "jenkins-${JOB_NAME}-${BUILD_NUMBER}-img",
                         pushImageTag: "${APP_NAME}:${codeCo.GIT_COMMIT}"
                     ])   
