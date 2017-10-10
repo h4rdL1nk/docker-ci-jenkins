@@ -78,7 +78,7 @@ pipeline {
         }
         stage('Push image to local registry') {
             steps{
-                dockerPushImage "https://registry.madisonmk.com" "jenkins-${JOB_NAME}-${BUILD_NUMBER}-img" "${DEPARTMENT}/${APP_NAME}:${codeCo.GIT_COMMIT}"
+                dockerPushImage "https://registry.madisonmk.com" "jenkins-${JOB_NAME}-${BUILD_NUMBER}-img" "inftel/bot:${codeCo.GIT_COMMIT}"
             }
         }
         stage('Push image to AWS') {
