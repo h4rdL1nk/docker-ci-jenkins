@@ -78,9 +78,7 @@ pipeline {
         }
         stage('Push image to local registry') {
             steps{
-                dockerPushImage {
-                    registryUrl = "https://registry.madisonmk.com"
-                }
+                dockerPushImage "https://registry.madisonmk.com"
             }
         }
         stage('Push image to AWS') {
