@@ -10,6 +10,7 @@ def isBitbucket = true
 def isGithub = true
 def awsRegion = 'eu-west-1'
 def awsAppEnv = ''
+def awsEcrImg = ''
 
 pipeline {
     agent {
