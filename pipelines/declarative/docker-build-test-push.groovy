@@ -107,7 +107,8 @@ pipeline {
                         awsCredId: "aws-${DEPARTMENT}-admin",
                         awsEcrImg: "${awsEcrImg}",
                         awsAppEnv: "${awsAppEnv}",
-                        awsAppName: "${APP_NAME}"
+                        awsAppName: "${APP_NAME}",
+                        deployTimeout: 120
                     ])   
                 }    
             }
