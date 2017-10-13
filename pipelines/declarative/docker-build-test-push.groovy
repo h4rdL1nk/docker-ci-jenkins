@@ -108,7 +108,7 @@ pipeline {
                         awsEcrImg: "${awsEcrImg}",
                         awsAppEnv: "${awsAppEnv}",
                         awsAppName: "${APP_NAME}",
-                        deployTimeout: 120
+                        deployTimeout: "120"
                     ])   
                 }    
             }
