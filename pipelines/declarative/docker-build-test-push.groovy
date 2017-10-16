@@ -65,6 +65,11 @@ pipeline {
             }
         }
         stage('Docker image tests') {
+            when{
+                expression{
+                    sh '[ -e tests/goss ]'   
+                }
+            }
             steps{
                 sh 'cd tests/goss && dgoss run jenkins-${JOB_NAME}-${BUILD_NUMBER}-img'
             }
