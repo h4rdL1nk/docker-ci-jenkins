@@ -106,7 +106,7 @@ pipeline {
                         awsRegion: "${awsRegion}",
                         awsCredId: "aws-${DEPARTMENT}-admin",
                         ecsClusterRegex: "^.*/CL.*-${APP_NAME}\$",
-                        ecsServiceRegex: "^.*/SVC-${awsAppName}",
+                        ecsServiceRegex: "^.*/SVC-${APP_NAME}",
                         awsEcrImg: "${awsEcrImg}",
                         awsAppEnv: "${awsAppEnv}",
                         awsAppName: "${APP_NAME}",
