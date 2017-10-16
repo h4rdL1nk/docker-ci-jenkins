@@ -67,7 +67,8 @@ pipeline {
         stage('Docker image tests') {
             when{
                 expression{
-                    return fileExists 'tests/dgoss/goss.yaml'  
+                    def fileExists = sh: script "[ -e tests/dgoss/goss.yaml ]", returnStatus: true
+                    return fileExists  
                 }
             }
             steps{
@@ -75,11 +76,6 @@ pipeline {
             }
         }
         stage('Application acceptance tests') {
-            when{
-                expression{
-                    return fileExists 'tests/codeception/tests/acceptance/FirstCest.php'   
-                }
-            }
             steps{
                 sh script: """
                     docker run -d -e ENV=dev --name jenkins-${JOB_NAME}-${BUILD_NUMBER}-run jenkins-${JOB_NAME}-${BUILD_NUMBER}-img
