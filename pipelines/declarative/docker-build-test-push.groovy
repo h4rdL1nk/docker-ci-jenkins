@@ -105,6 +105,8 @@ pipeline {
                     awsEcsDeployApp([
                         awsRegion: "${awsRegion}",
                         awsCredId: "aws-${DEPARTMENT}-admin",
+                        ecsClusterRegex="^.*/CL.*-${APP_NAME}\$",
+                        ecsServiceRegex="^.*/SVC-${awsAppName}",
                         awsEcrImg: "${awsEcrImg}",
                         awsAppEnv: "${awsAppEnv}",
                         awsAppName: "${APP_NAME}",
