@@ -67,7 +67,7 @@ pipeline {
         stage('Docker image tests') {
             when{
                 expression{
-                    sh '[ -e tests/goss ]'   
+                    return sh '[ -e tests/goss ]'   
                 }
             }
             steps{
@@ -77,7 +77,7 @@ pipeline {
         stage('Application acceptance tests') {
             when{
                 expression{
-                    sh '[ -e tests/codeceptio ]'   
+                    return sh '[ -e tests/codeception ]'   
                 }
             }
             steps{
