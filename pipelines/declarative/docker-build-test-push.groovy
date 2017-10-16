@@ -67,7 +67,7 @@ pipeline {
         stage('Docker image tests') {
             when{
                 expression{
-                    return sh '[ -e tests/goss ]'   
+                    return fileExists 'tests/dgoss/goss.yaml'  
                 }
             }
             steps{
@@ -77,7 +77,7 @@ pipeline {
         stage('Application acceptance tests') {
             when{
                 expression{
-                    return sh '[ -e tests/codeception ]'   
+                    return fileExists 'tests/codeception/tests/acceptance/FirstCest.php'   
                 }
             }
             steps{
