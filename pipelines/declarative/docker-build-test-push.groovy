@@ -77,7 +77,7 @@ pipeline {
         stage('Application acceptance tests') {
             when{
                 expression{
-                    sh '[ -e tests/codeception ]'   
+                    sh '[ -e tests/codeceptio ]'   
                 }
             }
             steps{
