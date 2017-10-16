@@ -75,6 +75,11 @@ pipeline {
             }
         }
         stage('Application acceptance tests') {
+            when{
+                expression{
+                    sh '[ -e tests/codeception ]'   
+                }
+            }
             steps{
                 sh script: """
                     docker run -d -e ENV=dev --name jenkins-${JOB_NAME}-${BUILD_NUMBER}-run jenkins-${JOB_NAME}-${BUILD_NUMBER}-img
