@@ -67,8 +67,8 @@ pipeline {
         stage('Docker image tests') {
             when{
                 expression{
-                    def checkFile = sh script: "[ -e tests/dgoss/goss.yaml ]", returnStatus: true
-                    return checkFile  
+                    def checkGossTests = sh script: "[ -e tests/dgoss/goss.yaml ]", returnStatus: true
+                    return checkGossTests  
                 }
             }
             steps{
@@ -76,6 +76,12 @@ pipeline {
             }
         }
         stage('Application acceptance tests') {
+            when{
+                expression{
+                    def checkAcceptanceTests = sh script: "[ -e tests/codeception/tests/acceptance ]", returnStatus: true
+                    return checkAcceptanceTests  
+                }
+            }
             steps{
                 sh script: """
                     docker run -d -e ENV=dev --name jenkins-${JOB_NAME}-${BUILD_NUMBER}-run jenkins-${JOB_NAME}-${BUILD_NUMBER}-img
