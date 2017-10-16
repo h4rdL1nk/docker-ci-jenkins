@@ -67,7 +67,7 @@ pipeline {
         stage('Docker image tests') {
             when{
                 expression{
-                    def checkFile = sh: script "[ -e tests/dgoss/goss.yaml ]", returnStatus: true
+                    def checkFile = sh script: "[ -e tests/dgoss/goss.yaml ]", returnStatus: true
                     return checkFile  
                 }
             }
