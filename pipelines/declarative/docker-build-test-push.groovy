@@ -78,7 +78,7 @@ pipeline {
         stage('Application acceptance tests') {
             when{
                 expression{
-                    def checkAcceptanceTests = sh script: "[ -d tests/codeception/tests/acceptance ]", returnStatus: true
+                    def checkAcceptanceTests = sh script: "[ -e tests/codeception/tests/acceptance/FirstCest.php ]", returnStatus: true
                     return checkAcceptanceTests  
                 }
             }
