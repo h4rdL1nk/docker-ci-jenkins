@@ -79,7 +79,7 @@ pipeline {
         stage('Application acceptance tests') {
             when{
                 expression{
-                    def codeceptionCheck sh script: "[ -d tests/codeception ]", returnStatus: true
+                    def codeceptionCheck = sh script: "[ -d tests/codeception ]", returnStatus: true
                     echo "Code: ${codeceptionCheck}"
                     return codeceptionCheck
                 }
