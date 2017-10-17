@@ -107,11 +107,16 @@ pipeline {
         stage('Deploy application'){
             steps{
                 script{
-                    if ( gitPushBranch == "master" ){
-                        awsAppEnv = 'pro'    
-                    }
-                    else{
-                        awsAppEnv = 'pre'
+                    switch(gitPushBranch){
+                        case 'master':
+                            awsAppEnv = 'pro'
+                            break
+                        case ['testing','pre']:
+                            awsAppEnv = 'pre'
+                            break    
+                        default: 
+                            awsAppEnv = 'pre'
+                            break     
                     }
 
                     echo "Deploying image: ${awsEcrImg}"
