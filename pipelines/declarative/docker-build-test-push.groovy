@@ -67,8 +67,8 @@ pipeline {
         stage('Docker image tests') {
             when{
                 expression{
-                    def gossCheck = sh script: "[ -e tests/goss/goss.yaml ]", returnStatus: true
-                    echo "Code: ${gossCheck}"
+                    //Reversed output code, because for Jenkins the value 1 is true
+                    def gossCheck = sh script: "[ ! -e tests/goss/goss.yaml ]", returnStatus: true
                     return gossCheck
                 }
             }
@@ -79,8 +79,7 @@ pipeline {
         stage('Application acceptance tests') {
             when{
                 expression{
-                    def codeceptionCheck = sh script: "[ -d tests/codeception ]", returnStatus: true
-                    echo "Code: ${codeceptionCheck}"
+                    def codeceptionCheck = sh script: "[ ! -d tests/codeception ]", returnStatus: true
                     return codeceptionCheck
                 }
             }
