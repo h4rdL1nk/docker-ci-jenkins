@@ -67,8 +67,7 @@ pipeline {
         stage('Docker image tests') {
             when{
                 expression{
-                    def checkGossTests = sh script: "[ -e tests/dgoss ]", returnStatus: true
-                    return checkGossTests  
+                    return sh script: "[ -e tests/goss/goss.yaml ]", returnStatus: true 
                 }
             }
             steps{
@@ -78,8 +77,7 @@ pipeline {
         stage('Application acceptance tests') {
             when{
                 expression{
-                    def checkAcceptanceTests = sh script: "[ -e tests/codeception ]", returnStatus: true
-                    return checkAcceptanceTests  
+                    return sh script: "[ -d tests/codeception ]", returnStatus: true
                 }
             }
             steps{
