@@ -104,7 +104,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy application'){
+        stage('Deploy application to AWS'){
             steps{
                 script{
                     switch(gitPushBranch){
