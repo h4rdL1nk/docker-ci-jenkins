@@ -5,38 +5,62 @@ pipeline {
         disableConcurrentBuilds()
     }
     stages {
-        stage('Checkout code'){
+        stage('Create python virtualenv'){
             steps{
-                script{
-                    codeCo = checkout scm:[
-                                $class: 'GitSCM',
-                                poll: true,
-                                branches: [[
-                                    name: "*/*"
-                                ]],
-                                userRemoteConfigs: [[
-                                    credentialsId: 'visitor',
-                                    url: "https://pdihub.hi.inet/smartdigitsre/ansible-role-smd-bootstrap"
-                                ]]
-                            ]
+                ansiColor('xterm') {
+                    echo "\u001B[32mBuilding virtualenv ...\u001B[0m"
+                    sh script: """
+                            virtualenv -p /usr/bin/python2.7 .venv
+                            source .venv/bin/activate
+                            pip install --upgrade -r requirements.txt
+                    """
                 }
             }
         }
-        stage('Create and test molecule environment'){
+        stage('Molecule role scenario setup'){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'ost-epg-admin', usernameVariable: 'OS_USERNAME', passwordVariable: 'OS_PASSWORD')]) {
-                    sh script: "make create"
-                    sh script: "make dependency"
-                    sh script: "make converge"
-                    sh script: "make idempotence"
+                ansiColor('xterm') {
+                    echo "\u001B[32mSetting up role scenario ...\u001B[0m"
+                    withCredentials([usernamePassword(credentialsId: 'ost-epg-admin', passwordVariable: 'OS_PASSWORD', usernameVariable: 'OS_USERNAME')]) {
+                        sh script: """
+                            [ -e \$VIRTUAL_ENV ] && source .venv/bin/activate
+                            molecule create -s openstack
+                        """
+
+                        sh script: """
+                            [ -e \$VIRTUAL_ENV ] && source .venv/bin/activate
+                            molecule dependency -s openstack
+                        """
+                    }
+                }
+            }
+        }
+        stage('Molecule role test'){
+            steps{
+                ansiColor('xterm') {
+                    echo "\u001B[32mTesting ansible role ...\u001B[0m"
+                    withCredentials([usernamePassword(credentialsId: 'ost-epg-admin', passwordVariable: 'OS_PASSWORD', usernameVariable: 'OS_USERNAME')]) {
+                        sh script: """
+                            [ -e \$VIRTUAL_ENV ] && source .venv/bin/activate
+                            molecule converge -s openstack
+                        """
+
+                        sh script: """
+                            [ -e \$VIRTUAL_ENV ] && source .venv/bin/activate
+                            molecule idempotence -s openstack
+                        """
+                    }
                 }
             }
         }
     }
     post{
-        success{
-            withCredentials([usernamePassword(credentialsId: 'ost-epg-admin', usernameVariable: 'OS_USERNAME', passwordVariable: 'OS_PASSWORD')]) {
-                    sh script: "make destroy"
+        always{
+            withCredentials([usernamePassword(credentialsId: 'ost-epg-admin', passwordVariable: 'OS_PASSWORD', usernameVariable: 'OS_USERNAME')]) {
+                sh script: """
+                            [ -e \$VIRTUAL_ENV ] && source .venv/bin/activate
+                            molecule destroy -s openstack
+                        """
             }
             deleteDir()
         }
