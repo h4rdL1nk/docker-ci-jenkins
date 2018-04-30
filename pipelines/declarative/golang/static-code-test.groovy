@@ -26,7 +26,7 @@ pipeline {
                 ])
             }
         }
-        stage('Build') { 
+        stage('Static code test') { 
             steps {
                 withEnv(["GOPATH=${JENKINS_HOME}/workspace/${JOB_NAME}","NO_PROXY=go.googlesource.com"]) {
                     sh script: '''
