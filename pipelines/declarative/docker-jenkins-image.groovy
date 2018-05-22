@@ -47,9 +47,9 @@ pipeline {
                     builtImage = docker.build("${env.DOCKERHUB_URL}/${env.IMAGE_NAME}:${imageTag}", "--pull --force-rm -f ${dockerfile} .")
 
                     jenkinsVersion = builtImage.inside{
-                        sh (
+                        sh(
                             returnStdout: true,
-                            script: "sed '/<version>/!d ; s/<version>\\(.*\\)<\\/version>/\\1/' \${JENKINS_HOME}/config.xml"
+                            script: "java -jar /usr/share/jenkins/jenkins.war --version"
                         ).trim()
                     }
 
@@ -72,9 +72,10 @@ pipeline {
     post{
         always{
             script {
-                notify([ type: "slack-default-end" ])
+                notify([ type: "slack-default-end", message: "Jenkins version built: ${jenkinsVersion}" ])
             }
             deleteDir()
+            sh script: "docker rmi ${builtImage.id}"
         }
     }
 }
