@@ -1,0 +1,18 @@
+file:
+  /var/jenkins_home/copy_reference_file.log:
+    exists: true
+    mode: "0644"
+    owner: root 
+    group: root
+    filetype: file
+    contains:
+    - /^INSTALLED/
+command:
+  ps -eo args | grep java:
+    title: Checking that $JENKINS_OPTS and $JAVA_OPTS are in the ps line
+    exit-status: 0
+    stdout:
+    - /jenkins.war\s*{{getEnv "JENKINS_OPTS"}}/
+    - /java\s*{{getEnv "JAVA_OPTS"}}/
+    stderr: []
+timeout: 1000
