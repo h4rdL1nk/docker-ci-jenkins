@@ -2,8 +2,8 @@ file:
   /var/jenkins_home/copy_reference_file.log:
     exists: true
     mode: "0644"
-    owner: root 
-    group: root
+    owner: jenkins 
+    group: jenkins
     filetype: file
     contains:
     - /^INSTALLED/

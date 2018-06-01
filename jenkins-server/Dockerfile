@@ -2,6 +2,9 @@ FROM jenkins/jenkins:alpine
 
 ARG DOCKER_GID
 
+ENV JENKINS_OPTS "--httpPort=8080 --httpsPort=8443"
+ENV JAVA_OPTS "-Djava.awt.headless=true -Xmx1024m -Dcom.sun.jndi.ldap.connect.pool.protocol=DIGEST-MD5 -Dorg.apache.commons.jelly.tags.fmt.timeZone=Europe/Madrid"
+
 USER root
 
 #Add SO needed packages
