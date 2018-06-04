@@ -119,6 +119,10 @@ pipeline {
                             break     
                     }
 
+                    if( awsAppEnv.indexOf('pro') >= 0 ){
+                        confirmValue = input message: "Confirm deployment for ${awsAppEnv.toUpperCase()} environment", parameters: [string(defaultValue: '', description: '', name: 'WO identifier')]
+                    }  
+
                     echo "Deploying image: ${awsEcrImg}"
 
                     awsEcsDeployApp([
