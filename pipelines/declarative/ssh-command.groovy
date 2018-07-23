@@ -6,8 +6,7 @@ node {
     
     withCredentials([sshUserPrivateKey(credentialsId: 'ssh-privkey-sdops', keyFileVariable: 'privkey', usernameVariable: 'userName')]) {
     
-        stage('Init GIT'){
-            sh script: 'git init'
+        stage('Notification'){
             notify([ type: "slack-default-start" ])
         }
 
