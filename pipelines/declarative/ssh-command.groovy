@@ -10,6 +10,7 @@ pipeline {
 
         stage('Send notification'){
             steps{
+                sh script: "git init"
                 script{
                     notify([ type: "slack-default-start" ])
                 }
@@ -17,22 +18,15 @@ pipeline {
         }
 
         stage('Backup process'){
-                
             steps{
-
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh-privkey-sdops', keyFileVariable: 'privkey', usernameVariable: 'userName')]) {
-
                     script{
-                        
-                        script{
-                            remote = [
-                                user: userName,
-                                identityFile: privKey,
-                                name: 'jenkins.smartdigits.io',
-                                host: 'jenkins.smartdigits.io',
-                                allowAnyHosts: true
-                            ]
-                        }
+
+                        remote.user          = userName
+                        remote.identityFile  = privKey
+                        remote.name          = 'jenkins.smartdigits.io'
+                        remote.host          = 'jenkins.smartdigits.io'
+                        remote.allowAnyHosts = true
 
                         sshCommand remote: remote, command: '''
                             sudo tar -c --exclude="workspace/*" /var/lib/jenkins/ | gzip -9 >/tmp/jenkins.tar.gz
@@ -53,12 +47,10 @@ pipeline {
                             sudo mv /tmp/jenkins.tar.gz \${BKDIR}jenkins-\$(date "+%Y%m%d").tar.gz
                             sudo ls -rt \$BKDIR | head -\$(( \$(sudo ls \$BKDIR | wc -w) - \$BKFILE_NUM )) | while read F;do echo "Removing \$BKDIR/\$F ...";sudo rm \$BKDIR/\$F;done
                         '''
+                        
                     }
-
                 }
-
             }
-
         }
 
     }
