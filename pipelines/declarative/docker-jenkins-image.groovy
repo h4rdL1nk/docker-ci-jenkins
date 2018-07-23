@@ -56,6 +56,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Run dgoss container tests'){
+            steps{
+                withEnv(["GOSS_FILES_PATH=${WORKSPACE}/tests/goss/","GOSS_PATH=/usr/local/bin/goss","GOSS_FILES_STRATEGY=cp"]){
+                    sh script: """
+                        #!/bin/bash
+                        dgoss run ${env.DOCKERHUB_URL}/${env.IMAGE_NAME}:${imageTag}
+                        #dgoss run -v ${GOSS_PATH}:${GOSS_PATH} ${env.DOCKERHUB_URL}/${env.IMAGE_NAME}:${imageTag}
+                    """
+                }
+            }
+        }
+
         stage('Upload image'){
             steps{
                 script{
@@ -74,8 +87,8 @@ pipeline {
             script {
                 notify([ type: "slack-default-end", message: "Jenkins version built: ${jenkinsVersion}" ])
             }
-            deleteDir()
-            sh script: "docker rmi ${builtImage.id}"
+            //deleteDir()
+            //sh script: "docker rmi ${builtImage.id}"
         }
     }
 }
