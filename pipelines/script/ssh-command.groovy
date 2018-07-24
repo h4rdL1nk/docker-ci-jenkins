@@ -1,12 +1,13 @@
 @Library('standardLibraries') _
 
 node {
+
     def remote = [:]
     
     withCredentials([sshUserPrivateKey(credentialsId: 'ssh-privkey-sdops', keyFileVariable: 'privkey', usernameVariable: 'userName')]) {
     
         stage('Notify'){
-            sh script: "git init"
+            //sh script: "git init"
             notify([ type: "slack-default-start" ])
         }
 
