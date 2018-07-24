@@ -3,11 +3,14 @@
 node {
 
     def remote = [:]
+    def hosts = [
+        origin: 'jenkins.smartdigits.io',
+        destination: 'opsmgr.smartdigits.io'
+    ]
     
     withCredentials([sshUserPrivateKey(credentialsId: 'ssh-privkey-sdops', keyFileVariable: 'privkey', usernameVariable: 'userName')]) {
     
         stage('Notify'){
-            //sh script: "git init"
             checkout scm
             notify([ type: "slack-default-start" ])
         }
@@ -15,8 +18,8 @@ node {
         stage('Configure credentials object'){
             remote.user = userName
             remote.identityFile = privkey
-    	    remote.name = 'jenkins.smartdigits.io'
-            remote.host = 'jenkins.smartdigits.io'
+    	    remote.name = hosts.origin
+            remote.host = hosts.origin
             remote.allowAnyHosts = true
         }
 
@@ -32,8 +35,8 @@ node {
         }
 
         stage('Upload backup file over SCP'){
-            remote.name = 'opsmgr.smartdigits.io'
-            remote.host = 'opsmgr.smartdigits.io' 
+            remote.name = hosts.destination
+            remote.host = hosts.destination 
             sshPut remote: remote, from: 'jenkins.tar.gz', into: '/tmp/jenkins.tar.gz'
             sshCommand remote: remote, command: '''
                 #!/bin/bash
@@ -44,6 +47,12 @@ node {
                 sudo mv /tmp/jenkins.tar.gz \${BKDIR}jenkins-\$(date "+%Y%m%d").tar.gz
                 sudo ls -rt \$BKDIR | head -\$(( \$(sudo ls \$BKDIR | wc -w) - \$BKFILE_NUM )) | while read F;do echo "Removing \$BKDIR/\$F ...";sudo rm \$BKDIR/\$F;done
             '''
+        }
+
+        post{
+            success{
+                notify([ type: "slack-default-end", message: "Backu finished successfully" ])
+            }
         }
 
     }
