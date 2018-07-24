@@ -8,6 +8,7 @@ node {
     
         stage('Notify'){
             //sh script: "git init"
+            checkout scm
             notify([ type: "slack-default-start" ])
         }
 
