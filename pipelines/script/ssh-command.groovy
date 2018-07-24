@@ -49,10 +49,8 @@ node {
             '''
         }
 
-        post{
-            success{
-                notify([ type: "slack-default-end", message: "Backu finished successfully" ])
-            }
+        stage('Notify end')
+            notify([ type: "slack-default-end", message: "Backu finished successfully" ])
         }
 
     }
