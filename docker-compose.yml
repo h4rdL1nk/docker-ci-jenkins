@@ -1,0 +1,35 @@
+version: '2'
+services:
+  anchore-engine:
+    image: anchore-engine:latest
+    #privileged: true
+    depends_on:
+     - anchore-db
+    ports:
+     - "8228:8228"
+     - "8338:8338"
+    volumes:
+     - ./anchore/config:/config/:Z
+     #- /var/run/docker.sock:/var/run/docker.sock
+    logging:
+     driver: "json-file"
+     options:
+      max-size: 50m
+    environment:
+     # NOTE: this should be set to the same name as this service (e.g. anchore-engine)
+     - ANCHORE_ADMIN_PASS=4dm1n
+     - ANCHORE_HOST_ID=docker-anchore-engine
+     - ANCHORE_DB_HOST_ID=anchore-db
+     - ANCHORE_DB_USER=postgres
+     - ANCHORE_DB_PASS=mysecretpassword
+  anchore-db:
+    image: "postgres:9"
+    volumes:
+     - ./anchore/db:/var/lib/postgresql/data/pgdata/:Z
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - PGDATA=/var/lib/postgresql/data/pgdata/
+    logging:
+     driver: "json-file"
+     options:
+      max-size: 50m
