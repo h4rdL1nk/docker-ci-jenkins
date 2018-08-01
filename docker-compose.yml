@@ -1,5 +1,17 @@
 version: '2'
 services:
+  jenkins-ci:
+    build:
+      context: ./jenkins-server
+      dockerfile: Dockerfile
+      args:
+        # $(awk '/^docker/{match($$0,/[0-9]{3}/);print substr($$0,RSTART,RLENGTH)}' /etc/group)
+        DOCKER_GID: $(DOCKER_GID)
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
   anchore-engine:
     image: anchore-engine:latest
     #privileged: true
