@@ -10,12 +10,12 @@ docker run \
     --log-opt max-file=1 \
     --name smd_infra_jenkins \
     --restart=unless-stopped \
-    -m 4096m \
-    -e JAVA_OPTS="-Djava.awt.headless=true -Xmx2048m -Dcom.sun.jndi.ldap.connect.pool.protocol=DIGEST-MD5 -Dorg.apache.commons.jelly.tags.fmt.timeZone=Europe/Madrid" \
+    -m 1024m \
+    -e JAVA_OPTS="-Djava.awt.headless=true -Xmx512m -Dcom.sun.jndi.ldap.connect.pool.protocol=DIGEST-MD5 -Dorg.apache.commons.jelly.tags.fmt.timeZone=Europe/Madrid" \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /var/lib/jenkins:/var/jenkins_home:rw \
     --network smd_infra_ci \
-    -p 8443:8443 -p 8080 -d jenkins:alpine
+    -p 8443:8443 -p 8080:8080 -d jenkins:alpine
 
 ### ANCHORE
 
