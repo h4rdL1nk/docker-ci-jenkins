@@ -46,3 +46,8 @@
     }
     def specificCause = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)
     println specificCause.properties
+
+#Docker compose launch
+ export DOCKER_GID=$(awk '/^docker/{match($$0,/[0-9]{3}/);print substr($$0,RSTART,RLENGTH)}' /etc/group)
+ docker-compose up -d
+
