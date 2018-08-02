@@ -16,6 +16,8 @@ services:
       driver: "json-file"
       options:
         max-size: 50m
+    networks:
+      - ci
   anchore-engine:
     image: anchore-engine:latest
     #privileged: true
@@ -38,6 +40,8 @@ services:
       - ANCHORE_DB_HOST_ID=anchore-db
       - ANCHORE_DB_USER=postgres
       - ANCHORE_DB_PASS=mysecretpassword
+    networks:
+      - ci
   anchore-db:
     image: "postgres:9"
     volumes:
@@ -49,3 +53,12 @@ services:
       driver: "json-file"
       options:
         max-size: 50m
+    networks:
+      - ci
+
+networks:
+  ci:
+    driver: bridge
+    driver_opts:
+      # Option for OpenStack hosts
+      com.docker.network.driver.mtu: 1400
