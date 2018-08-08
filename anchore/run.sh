@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker network create smd_infra_ci
+docker network create -d bridge -o "com.docker.network.driver.mtu=1400" smd_infra_ci
 
 ### JENKINS
 
