@@ -54,6 +54,7 @@ pipeline {
                     }
 
                 }
+                writeFile file: 'anchore-images',text: "${env.DOCKERHUB_URL}/${env.IMAGE_NAME}:${jenkinsVersion} ${WORKSPACE}/Dockerfile"
             }
         }
 
@@ -81,6 +82,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Image vulnerability check'){
+            steps{
+                anchore 'anchore-images'
+            }
+        }
+
     }
     post{
         always{
