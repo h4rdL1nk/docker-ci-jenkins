@@ -5,3 +5,10 @@ view-job-filters
 monitoring
 ansicolor
 aqua-security-scanner
+parameterized-trigger
+matrix-auth
+email-ext
+workflow-aggregator
+docker-workflow
+configuration-as-code
+pipeline-utility-steps
