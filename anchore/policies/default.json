@@ -1,0 +1,126 @@
+{
+    "id": "1e8156e4-2f30-479b-821c-d6b1e2800fa7",
+    "version": "1_0",
+    "name": "AnchoreUserDefault",
+    "policies": [
+      {
+        "comment": "",
+        "id": "b4b551ce-376e-455d-9c2b-51ff6d0ab07c",
+        "name": "default",
+        "rules": [
+          {
+            "action": "STOP",
+            "gate": "DOCKERFILECHECK",
+            "id": "ce7b8000-829b-4c27-8122-69cd59018400",
+            "params": [
+              {
+                "name": "DENIEDPORTS",
+                "value": "22"
+              }
+            ],
+            "trigger": "EXPOSE"
+          },
+          {
+            "action": "WARN",
+            "gate": "DOCKERFILECHECK",
+            "id": "312d9e41-1c05-4e2f-ad89-b7d34b0855bb",
+            "params": [],
+            "trigger": "NOHEALTHCHECK"
+          },
+          {
+            "action": "WARN",
+            "gate": "ANCHORESEC",
+            "id": "6b5c14e7-a6f7-48cc-99d2-959273a2c6fa",
+            "params": [
+              {
+                "name": "MAXAGE",
+                "value": "2"
+              }
+            ],
+            "trigger": "FEEDOUTOFDATE"
+          },
+          {
+            "action": "WARN",
+            "gate": "ANCHORESEC",
+            "id": "3e79ea94-18c4-4d26-9e29-3b9172a62c2e",
+            "params": [],
+            "trigger": "UNSUPPORTEDDISTRO"
+          },
+          {
+            "action": "WARN",
+            "gate": "ANCHORESEC",
+            "id": "6063fdde-b1c5-46af-973a-915739451ac4",
+            "params": [],
+            "trigger": "VULNMEDIUM"
+          },
+          {
+            "action": "STOP",
+            "gate": "ANCHORESEC",
+            "id": "b30e8abc-444f-45b1-8a37-55be1b8c8bb5",
+            "params": [],
+            "trigger": "VULNHIGH"
+          },
+          {
+            "action": "STOP",
+            "gate": "ANCHORESEC",
+            "id": "295adc9f-28b9-4aab-a5d6-833cf7727db7",
+            "params": [],
+            "trigger": "VULNCRITICAL"
+          }
+        ],
+        "version": "1_0"
+      }
+    ],
+    "whitelists": [
+      {
+        "comment": "Jenkins packages ignored",
+        "id": "79b49b6f-8912-47fd-85c3-0125f401fbf5",
+        "items": [
+          {
+            "gate": "ANCHORESEC",
+            "id": "99d4046b-277d-4569-a10f-cd4c60742f66",
+            "trigger_id": "CVE-2016-4074+jq-1.6_rc1-r1"
+          }
+        ],
+        "name": "jenkins-packages",
+        "version": "1_0"
+      },
+      {
+        "comment": "Default Global Whitelist",
+        "id": "912937b6-05fb-472f-bfbe-834c3562f32d",
+        "items": [],
+        "name": "Global Whitelist",
+        "version": "1_0"
+      }
+    ],
+    "mappings": [
+      {
+        "id": "a8bec78d-9c01-47b3-b38e-9f01760df05d",
+        "image": {
+          "type": "tag",
+          "value": "*"
+        },
+        "name": "jenkins-sdi",
+        "policy_id": "b4b551ce-376e-455d-9c2b-51ff6d0ab07c",
+        "registry": "registry.smartdigits.io",
+        "repository": "jenkins-sdi",
+        "whitelist_ids": [
+          "79b49b6f-8912-47fd-85c3-0125f401fbf5"
+        ]
+      },
+      {
+        "id": "c4f9bf74-dc38-4ddf-b5cf-00e9c0074611",
+        "image": {
+          "type": "tag",
+          "value": "*"
+        },
+        "name": "default",
+        "policy_id": "b4b551ce-376e-455d-9c2b-51ff6d0ab07c",
+        "registry": "*",
+        "repository": "*",
+        "whitelist_ids": [
+          "912937b6-05fb-472f-bfbe-834c3562f32d"
+        ]
+      }
+    ]
+  }
