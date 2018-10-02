@@ -19,7 +19,7 @@ services:
     networks:
       - ci
   anchore-engine:
-    image: anchore-engine:latest
+    image: anchore/anchore-engine:v0.2.4
     #privileged: true
     depends_on:
       - anchore-db
