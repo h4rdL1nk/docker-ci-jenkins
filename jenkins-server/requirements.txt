@@ -1,2 +1,4 @@
 pip
 docker-compose
+anchorecli
+requests==2.20.0

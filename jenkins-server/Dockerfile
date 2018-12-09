@@ -10,7 +10,8 @@ ENV JAVA_OPTS "-Djava.awt.headless=true -Xmx1024m -Dcom.sun.jndi.ldap.connect.po
 USER root
 
 #Add SO needed packages
-RUN apk update && apk add docker python2 py2-pip
+RUN apk update --no-cache
+RUN apk add --no-cache docker python2 py2-pip
 
 #Install required python packages
 ADD ./requirements.txt /requirements.txt
