@@ -16,6 +16,10 @@ services:
       driver: "json-file"
       options:
         max-size: 50m
+    environment:
+      - ANCHORE_CLI_USER=admin
+      - ANCHORE_CLI_PASS=4dm1n
+      - ANCHORE_CLI_URL=http://anchore-engine:8228/v1
     networks:
       - ci
 
@@ -23,9 +27,6 @@ services:
     image: anchore/anchore-engine:latest
     depends_on:
       - anchore-db
-    ports:
-      - "8228:8228"
-      - "8338:8338"
     volumes:
       - ./anchore/config:/config/:Z
     logging:
@@ -34,6 +35,9 @@ services:
         max-size: 50m
     environment:
       - ANCHORE_ADMIN_PASSWORD=4dm1n
+      - ANCHORE_CLI_USER=admin
+      - ANCHORE_CLI_PASS=4dm1n
+      - ANCHORE_CLI_URL=http://anchore-engine:8228/v1
       - ANCHORE_HOST_ID=anchore-engine
       - ANCHORE_ENDPOINT_HOSTNAME=anchore-engine
       - ANCHORE_DB_HOST_ID=anchore-db
