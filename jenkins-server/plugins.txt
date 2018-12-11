@@ -1,7 +1,9 @@
 credentials
+ssh-credentials
 ldap
 pipeline-model-definition
 configuration-as-code
+configuration-as-code-support
 docker-build-publish
 dashboard-view
 view-job-filters

@@ -3,6 +3,25 @@
 
 jenkins:
   systemMessage: "Welcome to h4rdl1nk Jenkins Demo!!"
+  numExecutors: 2
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: administrator
+        password: 4dm1nUs3r
+
+#credentials:
+#  system:
+#    domainCredentials:
+#      - credentials:
+#        - usernamePassword:
+#              scope:    SYSTEM
+#              id:       anchore-users-admin
+#              username: admin
+#              password: 4dm1n
+#              description: "Anchore default admin user"
 
 unclassified:
   anchore:
