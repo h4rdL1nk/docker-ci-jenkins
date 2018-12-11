@@ -1,3 +1,6 @@
+# https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/README.md
+# https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/integrations/src/test/resources/io/jenkins/plugins/casc
+
 jenkins:
   systemMessage: "Welcome to h4rdl1nk Jenkins Demo!!"
 
