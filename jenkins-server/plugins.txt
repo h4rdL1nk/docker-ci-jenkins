@@ -1,3 +1,6 @@
+credentials
+ldap
+pipeline-model-definition
 configuration-as-code
 docker-build-publish
 dashboard-view
