@@ -11,12 +11,14 @@ services:
       - "8080:8080"
       - "8443:8443"
     volumes:
+      - "./jenkins-server/casc_configs:/casc_configs:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     logging:
       driver: "json-file"
       options:
         max-size: 50m
     environment:
+      - CASC_JENKINS_CONFIG=/casc_configs
       - ANCHORE_CLI_USER=admin
       - ANCHORE_CLI_PASS=4dm1n
       - ANCHORE_CLI_URL=http://anchore-engine:8228/v1

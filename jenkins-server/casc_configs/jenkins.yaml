@@ -1,0 +1,6 @@
+anchore:
+  engineurl: http://anchore-engine:8228/v1
+  engineuser: admin
+  enginepass: 4dm1n
+  engineverify: false
+  debug: false
