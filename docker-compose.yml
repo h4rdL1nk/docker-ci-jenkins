@@ -35,6 +35,7 @@ services:
     environment:
       - ANCHORE_ADMIN_PASSWORD=4dm1n
       - ANCHORE_HOST_ID=anchore-engine
+      - ANCHORE_ENDPOINT_HOSTNAME=anchore-engine
       - ANCHORE_DB_HOST_ID=anchore-db
       - ANCHORE_DB_USER=postgres
       - ANCHORE_DB_PASS=mysecretpassword
