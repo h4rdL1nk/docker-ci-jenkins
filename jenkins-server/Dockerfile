@@ -1,5 +1,11 @@
 FROM jenkins/jenkins:alpine
 
+HEALTHCHECK --start-period=10s --interval=5s --retries=3 CMD curl -sk https://localhost:443 -o/dev/null \
+    || curl -sk https://localhost:8443 -o/dev/null \
+    || curl -s http://localhost:80 -o/dev/null \
+    || curl -s http://localhost:8080 -o/dev/null \
+    || exit 1
+
 ARG DOCKER_GID=973
 ARG JENKINS_HTTP_PORT=8080
 ARG TZ=Europe/Madrid
@@ -11,7 +17,9 @@ USER root
 
 #Add SO needed packages
 RUN apk update --no-cache
-RUN apk add --no-cache docker python2 py2-pip
+RUN apk add --no-cache docker
+RUN apk add --no-cache go
+RUN apk add --no-cache python2 py2-pip
 
 #Install required python packages
 ADD ./requirements.txt /requirements.txt
