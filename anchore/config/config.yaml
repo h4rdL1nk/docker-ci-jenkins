@@ -71,7 +71,7 @@ auto_restart_services: True
 credentials:
   users:
      admin:
-       password: '${ANCHORE_ADMIN_PASS}'
+       password: '${ANCHORE_ADMIN_PASSWORD}'
        email: 'smartdigits_support@telefonica.com'
        external_service_auths:
        #  anchoreio:

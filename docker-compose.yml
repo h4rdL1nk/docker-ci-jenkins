@@ -1,26 +1,26 @@
-version: '2'
+version: '3'
+
 services:
   jenkins-ci:
     build:
       context: ./jenkins-server
       dockerfile: Dockerfile
       args:
-        # $(awk '/^docker/{match($$0,/[0-9]{3}/);print substr($$0,RSTART,RLENGTH)}' /etc/group)
         DOCKER_GID: ${DOCKER_GID}
     ports:
       - "8080:8080"
       - "8443:8443"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
     logging:
       driver: "json-file"
       options:
         max-size: 50m
     networks:
       - ci
+
   anchore-engine:
     image: anchore/anchore-engine:latest
-    #privileged: true
     depends_on:
       - anchore-db
     ports:
@@ -28,24 +28,23 @@ services:
       - "8338:8338"
     volumes:
       - ./anchore/config:/config/:Z
-     #- /var/run/docker.sock:/var/run/docker.sock
     logging:
       driver: "json-file"
       options:
         max-size: 50m
     environment:
-      # NOTE: this should be set to the same name as this service (e.g. anchore-engine)
-      - ANCHORE_ADMIN_PASS=4dm1n
-      - ANCHORE_HOST_ID=docker-anchore-engine
+      - ANCHORE_ADMIN_PASSWORD=4dm1n
+      - ANCHORE_HOST_ID=anchore-engine
       - ANCHORE_DB_HOST_ID=anchore-db
       - ANCHORE_DB_USER=postgres
       - ANCHORE_DB_PASS=mysecretpassword
     networks:
       - ci
+
   anchore-db:
     image: "postgres:9"
     volumes:
-      - ./anchore/db:/var/lib/postgresql/data/pgdata/:Z
+      - "./anchore/db:/var/lib/postgresql/data/pgdata/:Z"
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
       - PGDATA=/var/lib/postgresql/data/pgdata/
@@ -60,5 +59,4 @@ networks:
   ci:
     driver: bridge
     driver_opts:
-      # Option for OpenStack hosts
       com.docker.network.driver.mtu: 1400
