@@ -3,6 +3,12 @@
 
 plugins:
   #proxy:
+  #  name:
+  #  noProxyHost: "*.jenkins.io"
+  #  testUrl:
+  #  password:
+  #  port:
+  #  userName:
   sites:
     - id: "default"
       url: "https://updates.jenkins.io/update-center.json"
@@ -12,6 +18,8 @@ plugins:
     ssh-credentials: 1.14
     ldap: 1.20
     pipeline-model-definition: 1.3.4
+    pipeline-stage-step: 2.3
+    workflow-aggregator: 2.6
     workflow-basic-steps: 2.13
     ssh-steps: 1.1.1
     blueocean: 1.9.0
@@ -23,7 +31,7 @@ security:
   
 jenkins:
   systemMessage: "Welcome to h4rdl1nk Jenkins Demo!!"
-  disableRememberMe: true
+  disableRememberMe: false
   numExecutors: 2
   globalNodeProperties:
   - envVars:
