@@ -11,7 +11,7 @@ ARG JENKINS_HTTP_PORT=8080
 ARG TZ=Europe/Madrid
 
 ENV JENKINS_OPTS "--httpPort=${JENKINS_HTTP_PORT}"
-ENV JAVA_OPTS "-Djava.awt.headless=true -Xmx1024m -Dcom.sun.jndi.ldap.connect.pool.protocol=DIGEST-MD5 -Dorg.apache.commons.jelly.tags.fmt.timeZone=${TZ}"
+ENV JAVA_OPTS "-Djava.awt.headless=true -Xmx1024m -Djenkins.install.runSetupWizard=false -Dcom.sun.jndi.ldap.connect.pool.protocol=DIGEST-MD5 -Dorg.apache.commons.jelly.tags.fmt.timeZone=${TZ}"
 
 USER root
 

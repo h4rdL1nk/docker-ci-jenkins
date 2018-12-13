@@ -1,9 +1,25 @@
 # https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/README.md
 # https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/integrations/src/test/resources/io/jenkins/plugins/casc
 
+plugins:
+  #proxy:
+  sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  required:
+    git: 3.9.1
+
 jenkins:
   systemMessage: "Welcome to h4rdl1nk Jenkins Demo!!"
   numExecutors: 2
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: "DUMMY"
+        value: "VALUE"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
   securityRealm:
     local:
       allowsSignup: false
@@ -11,6 +27,30 @@ jenkins:
       users:
       - id: administrator
         password: 4dm1nUs3r
+    #ldap:
+    #  configurations:
+    #  - displayNameAttributeName: "cn"
+    #    extraEnvVars: "{=}"
+    #    inhibitInferRootDN: false
+    #    managerPasswordSecret: "{AQAAABAAAAAQyerafMsP+ajS5eQGExIJY8q1HnM/tpuLR+wfEnQL3SA=}"
+    #    rootDN: "dc=om,dc=dsn,dc=inet"
+    #    server: "esah-dsnm-ld01p.om.dsn.inet esjc-dsnm-ld02p.om.dsn.inet"
+    #    userSearch: "(&(uid={0})(|(memberOf=cn=rmn-pro-devteam,ou=pro,ou=rmn,ou=services,ou=groups,dc=om,dc=dsn,dc=inet)(memberOf=cn=rmn-pro-sdjetsetme,ou=pro,ou=rmn,ou=services,ou=groups,dc=om,dc=dsn,dc=inet)))"
+    #    userSearchBase: "ou=People"
+    #  disableMailAddressResolver: false
+    #  disableRolePrefixing: true
+
+unclassified:
+  anchore:
+    engineurl: http://anchore-engine:8228/v1
+    engineuser: admin
+    enginepass: 4dm1n
+    engineverify: false
+    debug: false
+
+#jobs:
+#  - url: https://raw.githubusercontent.com/Praqma/job-dsl-collection/master/configuration-as-code-dsl/pipeline.dsl #casc
+#  - url: https://raw.githubusercontent.com/Praqma/memory-map-plugin/master/jenkins-pipeline/pipeline.groovy #memory map
 
 #credentials:
 #  system:
@@ -22,11 +62,3 @@ jenkins:
 #              username: admin
 #              password: 4dm1n
 #              description: "Anchore default admin user"
-
-unclassified:
-  anchore:
-    engineurl: http://anchore-engine:8228/v1
-    engineuser: admin
-    enginepass: 4dm1n
-    engineverify: false
-    debug: false
