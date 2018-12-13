@@ -23,6 +23,7 @@ security:
   
 jenkins:
   systemMessage: "Welcome to h4rdl1nk Jenkins Demo!!"
+  disableRememberMe: true
   numExecutors: 2
   globalNodeProperties:
   - envVars:
