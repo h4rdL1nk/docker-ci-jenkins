@@ -1,16 +1,3 @@
 configuration-as-code
 configuration-as-code-support
-credentials
-ssh-credentials
-ldap
-pipeline-model-definition
-docker-build-publish
-dashboard-view
-view-job-filters
-monitoring
-ansicolor
 anchore-container-scanner
-parameterized-trigger
-matrix-auth
-email-ext
-pipeline-utility-steps
