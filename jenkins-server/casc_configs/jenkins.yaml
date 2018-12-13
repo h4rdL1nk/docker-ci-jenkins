@@ -17,6 +17,10 @@ plugins:
     blueocean: 1.9.0
     anchore-container-scanner: 1.0.18
 
+security:
+  remotingCLI:
+    enabled: false
+  
 jenkins:
   systemMessage: "Welcome to h4rdl1nk Jenkins Demo!!"
   numExecutors: 2
@@ -60,13 +64,13 @@ unclassified:
 #  - url: https://raw.githubusercontent.com/Praqma/job-dsl-collection/master/configuration-as-code-dsl/pipeline.dsl #casc
 #  - url: https://raw.githubusercontent.com/Praqma/memory-map-plugin/master/jenkins-pipeline/pipeline.groovy #memory map
 
-#credentials:
-#  system:
-#    domainCredentials:
-#      - credentials:
-#        - usernamePassword:
-#              scope:    SYSTEM
-#              id:       anchore-users-admin
-#              username: admin
-#              password: 4dm1n
-#              description: "Anchore default admin user"
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+        - usernamePassword:
+              scope:    GLOBAL
+              id:       anchore-users-admin
+              username: admin
+              password: 4dm1n
+              description: "Anchore default admin user"
