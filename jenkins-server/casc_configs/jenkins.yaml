@@ -22,9 +22,16 @@ plugins:
     pipeline-stage-step: '2.3'
     workflow-aggregator: '2.6'
     workflow-basic-steps: '2.13'
+    workflow-step-api: '2.17'
     ssh-steps: '1.1.1'
     blueocean: '1.9.0'
     anchore-container-scanner: '1.0.18'
+    matrix-project: '1.13'
+    matrix-auth: '2.3'
+    ansicolor: '0.6.0'
+    job-dsl: '1.70'
+    xml-job-to-job-dsl: '0.1.10'
+
 
 security:
   remotingCLI:
