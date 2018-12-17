@@ -1,29 +1,18 @@
-pipelineJob("test") {
+pipelineJob("anchore-test") {
 	description()
 	keepDependencies(false)
 	definition {
 		cpsScm {
-"""pipeline {
-    agent any
-    stages {
-        stage('Create anchore images file'){
-            steps{
-                ansiColor('xterm') {
-                    sh script: \"\"\"
-                        echo 'debian:wheezy' >> anchore-images.txt
-                    \"\"\"
-                }
-            }
-        }
-        stage('Analize images'){
-            steps{
-                ansiColor('xterm') {
-                    anchore engineCredentialsId: 'anchore-users-admin', name: 'anchore-images.txt'
-                }
-            }
-        }
-    }
-}"""		}
+			scm {
+				git {
+					remote {
+						github("h4rdL1nk/docker-ci-jenkins", "https")
+					}
+					branch("*/master")
+				}
+			}
+			scriptPath("pipelines/declarative/anchore-image-scan.groovy")
+		}
 	}
 	disabled(false)
 }

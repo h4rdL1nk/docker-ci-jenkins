@@ -77,8 +77,8 @@ unclassified:
     engineverify: false
     debug: false
 
-jobs:
-  - url: https://raw.githubusercontent.com/h4rdL1nk/docker-ci-jenkins/master/jobs/dsl/anchore-test.dsl
+#jobs:
+#  - url: https://raw.githubusercontent.com/h4rdL1nk/docker-ci-jenkins/master/jobs/dsl/anchore-test.dsl
 #  - url: https://raw.githubusercontent.com/Praqma/job-dsl-collection/master/configuration-as-code-dsl/pipeline.dsl #casc
 #  - url: https://raw.githubusercontent.com/Praqma/memory-map-plugin/master/jenkins-pipeline/pipeline.groovy #memory map
 
