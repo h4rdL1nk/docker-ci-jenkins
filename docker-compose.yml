@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  jenkins-ci:
+  jenkins:
     build:
       context: ./jenkins-server
       dockerfile: Dockerfile
@@ -26,7 +26,7 @@ services:
       - ci
 
   anchore-engine:
-    image: anchore/anchore-engine:v0.3.1
+    image: anchore/anchore-engine:v0.2.4
     depends_on:
       - anchore-db
     volumes:
@@ -50,8 +50,8 @@ services:
 
   anchore-db:
     image: postgres:9.6.11-alpine
-    volumes:
-      - "./anchore/db:/var/lib/postgresql/data/pgdata/:Z"
+    #volumes:
+    #  - "./anchore/db:/var/lib/postgresql/data/pgdata/:Z"
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
       - PGDATA=/var/lib/postgresql/data/pgdata/
