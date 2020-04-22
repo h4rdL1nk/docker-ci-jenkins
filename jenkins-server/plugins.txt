@@ -1,3 +1,8 @@
 configuration-as-code
 configuration-as-code-support
 anchore-container-scanner
+pipeline-aws
+pipeline-stage-step
+workflow-job
+workflow-basic-steps
+workflow-aggregator
