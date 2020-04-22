@@ -17,9 +17,7 @@ USER root
 
 #Add SO needed packages
 RUN apk update --no-cache
-RUN apk add --no-cache docker
-RUN apk add --no-cache go
-RUN apk add --no-cache python2 py2-pip
+RUN apk add --no-cache docker go python2 py2-pip musl-dev python2-dev libffi-dev openssl-dev make
 
 #Install required python packages
 ADD ./requirements.txt /requirements.txt
